@@ -3,22 +3,23 @@
 import regex as re
 import string
 from nltk import flatten
+from nltk import ngrams
 import emoji
 import pandas as pd
+import py_vncorenlp
 from py_vncorenlp import VnCoreNLP
 from datetime import datetime, timedelta
-import py_vncorenlp
+from pathlib import Path
 
-# Automatically download VnCoreNLP components from the original repository
-# and save them in some local machine folder
+# Automatically download VnCoreNLP components from the original repository and save them in some local machine folder
 # py_vncorenlp.download_model(save_dir=r'D:\Toan\Scrape\google-review-scraper-main\VnCoreNLP')
 
-# Load the word and sentence segmentation component
+# Loại bỏ HTML
 def remove_HTML(text):
     return re.sub(r'<[^>]*>', '', text)
 
 
-# Standardize unicode
+# Chuẩn Unicode tiếng việt
 def convert_unicode(text):
     char1252 = 'à|á|ả|ã|ạ|ầ|ấ|ẩ|ẫ|ậ|ằ|ắ|ẳ|ẵ|ặ|è|é|ẻ|ẽ|ẹ|ề|ế|ể|ễ|ệ|ì|í|ỉ|ĩ|ị|ò|ó|ỏ|õ|ọ|ồ|ố|ổ|ỗ|ộ|ờ|ớ|ở|ỡ|ợ|ù|ú|ủ|ũ|ụ|ừ|ứ|ử|ữ|ự|ỳ|ý|ỷ|ỹ|ỵ|À|Á|Ả|Ã|Ạ|Ầ|Ấ|Ẩ|Ẫ|Ậ|Ằ|Ắ|Ẳ|Ẵ|Ặ|È|É|Ẻ|Ẽ|Ẹ|Ề|Ế|Ể|Ễ|Ệ|Ì|Í|Ỉ|Ĩ|Ị|Ò|Ó|Ỏ|Õ|Ọ|Ồ|Ố|Ổ|Ỗ|Ộ|Ờ|Ớ|Ở|Ỡ|Ợ|Ù|Ú|Ủ|Ũ|Ụ|Ừ|Ứ|Ử|Ữ|Ự|Ỳ|Ý|Ỷ|Ỹ|Ỵ'
     charutf8 = 'à|á|ả|ã|ạ|ầ|ấ|ẩ|ẫ|ậ|ằ|ắ|ẳ|ẵ|ặ|è|é|ẻ|ẽ|ẹ|ề|ế|ể|ễ|ệ|ì|í|ỉ|ĩ|ị|ò|ó|ỏ|õ|ọ|ồ|ố|ổ|ỗ|ộ|ờ|ớ|ở|ỡ|ợ|ù|ú|ủ|ũ|ụ|ừ|ứ|ử|ữ|ự|ỳ|ý|ỷ|ỹ|ỵ|À|Á|Ả|Ã|Ạ|Ầ|Ấ|Ẩ|Ẫ|Ậ|Ằ|Ắ|Ẳ|Ẵ|Ặ|È|É|Ẻ|Ẽ|Ẹ|Ề|Ế|Ể|Ễ|Ệ|Ì|Í|Ỉ|Ĩ|Ị|Ò|Ó|Ỏ|Õ|Ọ|Ồ|Ố|Ổ|Ỗ|Ộ|Ờ|Ớ|Ở|Ỡ|Ợ|Ù|Ú|Ủ|Ũ|Ụ|Ừ|Ứ|Ử|Ữ|Ự|Ỳ|Ý|Ỷ|Ỹ|Ỵ'
@@ -32,7 +33,7 @@ def convert_unicode(text):
         lambda x: dic[x.group()], text
     )
 
-# Standardize accent typing
+# Cách viết dấu
 vowels_to_ids = {}
 vowels_table = [
     ['a', 'à', 'á', 'ả', 'ã', 'ạ', 'a' ],
@@ -133,7 +134,7 @@ def standardize_sentence_typing(text):
     return ' '.join(words)
 
 
-# Normalize acronyms
+# Từ viết tắt
 # !wget https://gist.githubusercontent.com/behitek/7d9441c10b3c2739499fc5a4d9ea06fb/raw/df939245b3e841b62af115be4dcb3516dadc9fc5/teencode.txt
 replace_list = {
     'ô kêi': 'ok', 'okie': 'ok', 'o kê': 'ok', 'okey': 'ok', 'ôkê': 'ok', 'oki': 'ok', 'oke': 'ok', 'okay': 'ok', 'okê': 'ok',
@@ -175,17 +176,19 @@ replace_list = {
     '⭐': 'star', '*': 'star', '🌟': 'star',
 }
 
-with open(r'D:\Toan\Scrape\google-review-scraper-main\main\teencode.txt', encoding='utf-8') as f:
+teencode_path = Path(__file__).parent / "./teencode.txt"
+with open(teencode_path, encoding='utf-8') as f:
     for pair in f.readlines():
         key, value = pair.split('\t')
         replace_list[key] = value.strip()
 
+# Tạo hàm thay thế các từ viết tắt (riêng biệt)
 def custom_segmentation(text):
     # Thay thế cụm từ trước khi phân đoạn
     text = re.sub(r'khách', 'khách_hàng', text)
     return text
 
-
+# Chuẩn hóa từ viết tắt và từ lóng
 def normalize_acronyms(text):
     words = []
     for word in text.strip().split():
@@ -196,16 +199,18 @@ def normalize_acronyms(text):
 
 
 # Tạo hàm loại bỏ stopwords
-with open(r'D:\Toan\Scrape\google-review-scraper-main\main\vietnamese-stopwords.txt', encoding='utf-8') as f:
-    stopwords = f.read().splitlines()  # Chia theo dòng để tạo danh sách
+stopwword_path = Path(__file__).parent / "./vietnamese-stopwords.txt"
+with open(stopwword_path, encoding='utf-8') as f:
+
+    stopwords = f.read().splitlines() 
 def remove_stopwords(text):
     words = []
     for word in text.strip().split():
-        if word not in stopwords:  # Kiểm tra từng từ trong danh sách stopword
+        if word not in stopwords:  
             words.append(word)
     return ' '.join(words)
 
-# Word segmentation
+# Tách từ (word segmentation)
 rdrsegmenter = py_vncorenlp.VnCoreNLP(annotators=["wseg"], save_dir=r'D:\Toan\Scrape\google-review-scraper-main\VnCoreNLP')
 # annotator = VnCoreNLP(r"VnCoreNLP\models\wordsegmenter\wordsegmenter.rdr", annotators="wseg") 
 def word_segmentation(text):
@@ -213,10 +218,10 @@ def word_segmentation(text):
     return ' '.join(word for word in flatten(words))
 
 
-# Remove unnecessary characters
+# Xóa các kí tự không cần thiết
 def remove_unnecessary_characters(text):
     text = re.sub(r'[^\s\wáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịúùủũụưứừửữựýỳỷỹỵđÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÍÌỈĨỊÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ_]', ' ', text)
-    text = re.sub(r'\s+', ' ', text).strip() # Remove extra whitespace
+    text = re.sub(r'\s+', ' ', text).strip() 
     return text
 
 nowdate = datetime.now()
@@ -253,12 +258,20 @@ def convert_to_date(review_time):
                 return pd.NaT  # Trả về NaT nếu không thể chuyển đổi
         
         if 'năm' in unit:
-            return nowdate - timedelta(days=number * 365)  # Cứ 1 năm = 365 ngày
+            return nowdate - timedelta(days=number * 365)  
         elif 'tháng' in unit:
-            return nowdate - timedelta(days=number * 30)  # Cứ 1 tháng = 30 ngày
+            return nowdate - timedelta(days=number * 30)  
         elif 'tuần' in unit:
-            return nowdate - timedelta(weeks=number)  # Cứ 1 tuần = 7 ngày
-    return pd.NaT  # Nếu không phải định dạng hợp lệ
+            return nowdate - timedelta(weeks=number)  
+    return pd.NaT  
+
+# Tạo hàm tạo ngram
+def ngram(string, n=1):
+    words = string.replace(',', '').split()
+    if len(words) < n:  
+        return []  
+    gram_str = list(ngrams(words, n))
+    return [" ".join(gram).lower() for gram in gram_str]
 
 def preprocess_text(text):
     # Xóa mã HTML
