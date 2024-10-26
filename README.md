@@ -13,6 +13,7 @@ Utilizing Selenium and BeautifulSoup for web scraping, this project captures dat
 - Automated web scraping of Google Reviews
 - Data storage in CSV format for easy accessibility
 - Comprehensive analysis of customer sentiments
+(Acknowledgments: A special thanks to Behitek (https://github.com/behitek) for contributions to preprocessing Vietnamese text, which significantly aided this project.)
 - Visualization of review trends and patterns
 
 ## Conclusion
