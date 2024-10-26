@@ -1,18 +1,16 @@
-# Thesis Personal Assignment - Google Review Analyst
+# Thesis Personal Assignment - FPT Google Maps Review Analyst
 
 ## Objective
 The primary goal of this assignment is to develop a robust framework for collecting, processing, and analyzing Google Reviews. This framework will enable us to uncover trends, patterns, and sentiments that can inform business strategies and enhance customer engagement.
 
-This repository contains the code and report for my final project at UEH. For 3 machine learning models including Naive Bayes [[Mosteller and Wallace (1964)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500849)], Maxent [[Berger et al. (1996)](https://dl.acm.org/doi/10.5555/234285.234289)] and XGBoost [[Chen and Guestrin (2016)](https://dl.acm.org/doi/10.1145/2939672.2939785)], we create a custom UI that allows users to directly enter the review and select a machine learning model of their choice. We deploy the PhoBert model [[LDat Quoc Nguyen and Anh Tuan Nguyen (2020)](https://arxiv.org/abs/2003.00744)]
-
+This repository contains the code and report for my final project at UEH. Here I use 4 machine learning models including Naive Bayes [[Mosteller and Wallace (1964)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500849)], Maxent [[Berger et al. (1996)](https://dl.acm.org/doi/10.5555/234285.234289)] and XGBoost [[Chen and Guestrin (2016)](https://dl.acm.org/doi/10.1145/2939672.2939785)], and PhoBert model [[LDat Quoc Nguyen and Anh Tuan Nguyen (2020)](https://arxiv.org/abs/2003.00744)] for the Vietnamese text. I use VnCoreNLP and preprocessing techniques for Vietnamese based on the tutorial from Behitek's GitHub (https://github.com/behitek)."
 ## Methodology
 
 Utilizing Selenium and BeautifulSoup for web scraping, this project captures data from Google Reviews, including review names, texts, ratings, and timestamps. 
 
 ## Key Features
 
-- Automated web scraping of Google Reviews
-- Data storage in CSV format for easy accessibility
+- Automated web scraping of Google Reviews then storage in CSV format for easy accessibility
 - Comprehensive analysis of customer sentiments
 (Acknowledgments: A special thanks to Behitek (https://github.com/behitek) for contributions to preprocessing Vietnamese text, which significantly aided this project.)
 - Visualization of review trends and patterns
