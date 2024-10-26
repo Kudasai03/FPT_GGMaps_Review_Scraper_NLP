@@ -25,3 +25,4 @@ emoji
 underthesea
 sentencepiece
 wordcloud
+itertools
