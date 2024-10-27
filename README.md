@@ -1,4 +1,4 @@
-# Thesis Personal Assignment - FPT Google Maps Review Analyst
+# FPT Google Maps Review Analyst - Final Year Assignment
 
 ## Objective
 The primary goal of this assignment is to develop a robust framework for collecting, processing, and analyzing Google Reviews. This framework will enable us to uncover trends, patterns, and sentiments that can inform business strategies and enhance customer engagement.
