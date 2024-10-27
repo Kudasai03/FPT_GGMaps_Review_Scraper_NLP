@@ -6,7 +6,7 @@ The primary goal of this assignment is to develop a robust framework for collect
 This repository contains the code and report for my final project at UEH. Here I use 4 machine learning models including Naive Bayes [[Mosteller and Wallace (1964)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500849)], Maxent [[Berger et al. (1996)](https://dl.acm.org/doi/10.5555/234285.234289)] and XGBoost [[Chen and Guestrin (2016)](https://dl.acm.org/doi/10.1145/2939672.2939785)], and PhoBert model [[LDat Quoc Nguyen and Anh Tuan Nguyen (2020)](https://arxiv.org/abs/2003.00744)] for the Vietnamese text. I use VnCoreNLP and preprocessing techniques for Vietnamese based on the tutorial from Behitek's GitHub (https://github.com/behitek)."
 ## Methodology
 
-Utilizing Selenium and BeautifulSoup for web scraping, this project captures data from Google Reviews, including review names, texts, ratings, and timestamps. 
+Utilizing Selenium and BeautifulSoup for web scraping, this project captures data from Google Reviews, including review names, texts, ratings, and timestamps. Then using Model and Streamlit to build a viusal webapp.
 
 ## Key Features
 
