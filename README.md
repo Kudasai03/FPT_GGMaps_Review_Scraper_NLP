@@ -1,6 +1,6 @@
-# FPT Google Maps Review Analyst - Final Year Assignment
+# **FPT Google Maps Review Analyst - Final Year Assignment**
 
-## Objectives
+## **Objectives**
 
 The primary goal of this assignment is to develop a robust framework for collecting, processing, and analyzing Google Reviews. This framework will enable us to uncover trends, patterns, and sentiments that can inform business strategies and enhance customer engagement.
 
@@ -78,6 +78,6 @@ Utilizing Selenium and BeautifulSoup for web scraping, this project captures dat
 
 ![Screenshot 2024-10-27 012424](https://github.com/user-attachments/assets/2524fed0-7003-4398-9c4a-db7e99be23da)
 
-### Output Example
+#### ***Output Example***
 The findings from this project will contribute to a deeper understanding of consumer sentiment in the digital marketplace, providing valuable insights for businesses looking to improve their services and customer relations.
 ![Screenshot 2024-10-27 012557](https://github.com/user-attachments/assets/e1b02824-5717-43c6-a73c-6f0121331850)
