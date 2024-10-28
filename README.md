@@ -6,7 +6,7 @@ The primary goal of this assignment is to develop a robust framework for collect
 
 This repository includes the code and documentation for my final project at UEH. In this project, I applied four machine learning models for Vietnamese text classification including Naive Bayes [[Mosteller and Wallace (1964)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500849)], Maxent [[Berger et al. (1996)](https://dl.acm.org/doi/10.5555/234285.234289)] XGBoost [[Chen and Guestrin (2016)](https://dl.acm.org/doi/10.1145/2939672.2939785)], and PhoBert model [[LDat Quoc Nguyen and Anh Tuan Nguyen (2020)](https://arxiv.org/abs/2003.00744)] a pretrained model based on BERT specifically for Vietnamese. The text processing and segmentation utilize VnCoreNLP, following preprocessing techniques from Behitek's tutorial on (https://github.com/behitek).
 
-## Implementation
+## Implementation 
 
 To reproduce the webapp,  you need to clone the repository first:
 
@@ -42,8 +42,33 @@ def word_segmentation(text):
 ```
 python -m streamlit run d:/Toan/Scrape/google-review-scraper-main/webapp.py
 ```
+### You can costume the streamlit in this:
+```page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] > .main {{
+background-image: url("https://images.unsplash.com/photo-1681735342773-d452708e87e7"); # Online image or local image in Webapp_files/image.ipg
+background-size: 175%;
+background-position: top middel;
+background-repeat: no-repeat;
+background-attachment: local;
+}}
+[data-testid="stSidebar"] > div:first-child {{
+background-image: url("data:image/png;base64,{img}");
+background-position: center; 
+background-repeat: no-repeat;
+background-attachment: fixed;
+}}
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+[data-testid="stToolbar"] {{
+right: 2rem;
+}}
+</style>
+"""
+```
 ---
-## Methodology
+### Methodology - How it works
 
 Utilizing Selenium and BeautifulSoup for web scraping, this project captures data from Google Reviews, including review names, texts, ratings, and timestamps. Then using Model and Streamlit to build a viusal webapp.
 
@@ -53,7 +78,6 @@ Utilizing Selenium and BeautifulSoup for web scraping, this project captures dat
 
 ![Screenshot 2024-10-27 012424](https://github.com/user-attachments/assets/2524fed0-7003-4398-9c4a-db7e99be23da)
 
-## Conclusion
-
+### Output Example
 The findings from this project will contribute to a deeper understanding of consumer sentiment in the digital marketplace, providing valuable insights for businesses looking to improve their services and customer relations.
 ![Screenshot 2024-10-27 012557](https://github.com/user-attachments/assets/e1b02824-5717-43c6-a73c-6f0121331850)
