@@ -28,7 +28,7 @@ To reproduce the webapp,  you need to clone the repository first:
 ```
 git clone https://github.com/Kudasai03/FPT_GGMaps_Review_Scraper_NLP
 ```
-Then Please Download the VnCoreNLP at (https://github.com/vncorenlp/VnCoreNLP) and then paste is to folder VnCoreNLP to setup it
+Then Please Download the **VnCoreNLP** at (https://github.com/vncorenlp/VnCoreNLP) and then paste is to **folder VnCoreNLP** to setup it
 - `Java 1.8+` (Prerequisite)
 - File  `VnCoreNLP-1.2.jar` (27MB) and folder `models` (115MB) are placed in the same working folder.
 - `Python 3.6+` if using [a Python wrapper of VnCoreNLP](https://github.com/thelinhbkhn2014/VnCoreNLP_Wrapper). To install this wrapper, users have to run the following command:
@@ -36,7 +36,10 @@ Then Please Download the VnCoreNLP at (https://github.com/vncorenlp/VnCoreNLP) a
     `$ pip3 install py_vncorenlp` 
     
     _A special thanks goes to [Linh The Nguyen](https://github.com/thelinhbkhn2014) for creating this wrapper!_
-Install the requirment.txt file and then open the terminal then run the code
+Paste the Path you setup the VnCoreNLP in the def word_segmentation(text) in the Process.py file to finish set up the VnCoreNLP
+
+**Install the requirment.txt file and then open the terminal then run the code**
+
 ```
 python -m streamlit run d:/Toan/Scrape/google-review-scraper-main/webapp.py
 ```
