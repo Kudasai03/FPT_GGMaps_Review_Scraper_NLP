@@ -36,7 +36,8 @@ Then Please Download the **VnCoreNLP** at (https://github.com/vncorenlp/VnCoreNL
     `$ pip3 install py_vncorenlp` 
     
     _A special thanks goes to [Linh The Nguyen](https://github.com/thelinhbkhn2014) for creating this wrapper!_
-Paste the Path you setup the VnCoreNLP in the def word_segmentation(text) in the Process.py file to finish set up the VnCoreNLP
+  
+Paste the absolute Path you setup the VnCoreNLP in the **def word_segmentation(text)** in the **main/Process.py** file to finish set up the VnCoreNLP
 
 **Install the requirment.txt file and then open the terminal then run the code**
 
