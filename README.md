@@ -42,7 +42,7 @@ def word_segmentation(text):
 ```
 python -m streamlit run d:/Toan/Scrape/google-review-scraper-main/webapp.py
 ```
-### You can costume the streamlit in this:
+#### Costume the streamlit in this path on webapp.py :
 ```page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
